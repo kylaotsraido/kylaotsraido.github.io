@@ -21,17 +21,17 @@
 <body>
 <main>
 <section class="card" aria-labelledby="title">
-  <header><div><h1 id="title">Lepametsa elektri koguhind</h1><p class="intro">Börsihind tunniti koos tarbimiskoha tasude ja käibemaksuga.</p></div><span class="badge">Elektrilevi Võrk 2 · 40 A</span></header>
-  <section class="current" aria-label="Hetkehind"><div><small>Hetkehind · 22.11.2026 kell 12:00–13:00</small><strong>21,61 s/kWh</strong><small>sisaldab 24% käibemaksu · kuutasu ei sisaldu</small></div><aside><b>Kodu</b> 21,61<br><b>Enefit Volt, soodustusega</b> 29,70<br><span class="positive">Kodus odavam 8,09 s/kWh</span></aside></section>
-  <div class="chart-title"><h2>Tunnipõhine hind</h2><span>Vii hiirega tulbale või vali see klaviatuuriga, et näha jaotust</span></div>
-  <svg id="chart" viewBox="0 0 960 390" role="img" aria-label="Tulpdiagramm näitab 22. novembri Eesti elektri tunnihinda senti kilovatt-tunni kohta, koos Lepametsa võrgupaketi tasudega."></svg>
+  <header><div><h1 id="title">Lepametsa elektri koguhind</h1><p class="intro">Lepametsa elektri lõpphind ja Saaremaa laadimisvõrdlus, värskendatud lehe avamisel.</p><p class="hint" id="refresh-status" aria-live="polite">Laen järgmise 24 tunni börsihindu…</p></div><span class="badge">Elektrilevi Võrk 2 · 40 A</span></header>
+  <section class="current" aria-label="Hetkehind"><div><small>Praegune 15 min · <span id="current-window">ootan hinda</span></small><strong id="home-now">– s/kWh</strong><small>kõik Lepametsa muutuvad tasud ja KM · kuutasu väljas</small></div><aside><b>Enefit Volt, 10% soodustus</b> <span id="en-now">–</span><br><span class="positive" id="difference-now">Hinnaerinevus laadimisel</span></aside></section>
+  <div class="chart-title"><h2>Järgmised 24 tundi · 15 minuti samm</h2><span>Alates praegusest veerandtunnist · hõljuta tulpa, et näha hinda ja tasusid</span></div>
+  <svg id="chart" viewBox="0 0 960 390" role="img" aria-label="Järgmise 24 tunni Eesti elektri 15 minuti börsihind senti kilovatt-tunni kohta koos Lepametsa võrgupaketi tasudega."></svg>
   <div class="legend" aria-label="Graafiku legend"><span class="key"><i class="swatch" style="background:var(--blue)"></i>Börsihind, KM-ga</span><span class="key"><i class="swatch" style="background:var(--grid)"></i>Võrgutasu, KM-ga</span><span class="key"><i class="swatch" style="background:var(--fee)"></i>Taastuvenergia, varustuskindlus ja aktsiis, KM-ga</span><span class="key"><i class="swatch" style="background:var(--balance)"></i>Tasakaalustamisvõimsus, KM-ga</span></div>
   <section class="evcompare" aria-labelledby="evcompare-title">
-    <h2 id="evcompare-title">Kodu või Enefit Volt · võrdlus igal tunnil</h2>
-    <p>Enefiti kuni 100 kW avaliku laadija hind sinu 10% soodustusega: päeval 29,70 ja öösel 24,30 s/kWh. Kodu hind sisaldab Lepametsa tariifi kõiki kWh-põhiseid tasusid ja käibemaksu, kuutasuta.</p>
+    <h2 id="evcompare-title">Kodu või Enefit Volt · hinnavahe järgmise 24 tunni jooksul</h2>
+    <p>See graafik võrdleb koduhinda Enefit Volti kuni 100 kW laadijaga, arvestades sinu 10% soodustust: päeval 29,70 ja öösel 24,30 s/kWh. Teiste Saaremaa laadimisvõrkude tariifid on allpool jaamas või võrgus eraldi välja toodud. Roheline tähendab, et kodus on odavam; punane, et kodus kallim.</p>
     <svg id="ev-chart" viewBox="0 0 1000 350" role="img" aria-label="Tunnipõhine hinnavõrdlus: Lepametsa kodune elektrihind versus Enefit Volt kuni 100 kilovati laadija hind koos 10 protsendi soodustusega"></svg>
     <div class="evlegend"><span><i class="evswatch" style="background:#278356"></i>Kodus odavam</span><span><i class="evswatch" style="background:#c43d3d"></i>Kodus kallim</span><span><i class="evswatch" style="background:#3867e8"></i>Enefit Volt, 10% soodustus</span></div>
-    <div class="table-scroll"><table class="evtable"><thead><tr><th>Tund</th><th>Kodus, s/kWh</th><th>Enefit, s/kWh</th><th>Vahe, s/kWh</th></tr></thead><tbody id="ev-rows"></tbody></table></div>
+    <details class="table-scroll"><summary>Täpsed hinnad iga 15 minuti kohta</summary><table class="evtable"><thead><tr><th>Tund</th><th>Kodus, s/kWh</th><th>Enefit, s/kWh</th><th>Vahe, s/kWh</th></tr></thead><tbody id="ev-rows"></tbody></table></details>
   </section>
   <section class="compare" aria-labelledby="compare-title">
     <h2 id="compare-title">Kodulaadimine ja Saaremaa avalikud laadijad</h2>
@@ -48,61 +48,53 @@
     </tbody></table>
     <p class="hint">Avalikud hinnad on operaatorite avaldatud tariifid; dünaamilise hinnastamise või äpihinna puhul võib konkreetse laadija hind erineda. Laadijate nimekirjas olemine ei kinnita reaalajas vaba pistikut ega töökorras olekut. Vaata enne sõitu operaatori äpist või kaardilt hinda ja saadavust. Rändlusteenuse hind võib erineda otse operaatorilt maksmisest.</p>
   </section>
-  <div class="summary"><div class="metric"><span>Odavaim tund</span><b>06:00 · 12,56 s/kWh</b></div><div class="metric"><span>Kalleim tund</span><b>18:00 · 23,23 s/kWh</b></div><div class="metric"><span>Hetketunni hind</span><b>12:00 · 21,61 s/kWh</b></div></div>
-  <footer class="notes"><p><b>Arvestus.</b> Börsihinna väärtused sisaldavad 24% käibemaksu. Arvel toodud muud tasud on lisatud nende km-ta ühikuhindade alusel ning käibemaks arvutatud 24%.</p><p><b>Lepametsa tariifid.</b> Võrk 2 / 40 A: päevane edastamine 6,07 ja öine 3,51 s/kWh; taastuvenergia tasu 0,84; varustuskindluse tasu 0,758; elektriaktsiis 0,21; tasakaalustamisvõimsuse kulu 0,373 s/kWh (kõik enne KM-i). Päevatariif 07:00–22:00, öötariif 22:00–07:00.</p><p>Kuutasu 14,29 €/kuu on välja jäetud. Elektri müügi või tootmise tasaarveldust, kindlustust ega muid lisateenuseid ei arvestata. Hinnad lähtuvad 22.11.2026 avaldatud tunni börsihindadest ja Lepametsa 2026. aasta oktoobri arvest.</p><p><b>Hinnad ja asukohad:</b> <a href="https://www.elektrum.ee/ee/elektrum-drive/laadimine/laadimisjaamade-kaart">Elektrum Drive</a> · <a href="https://www.alexela.ee/et/e-mobiilsus-avalik-laadimine">Alexela</a> · <a href="https://www.enefit.ee/et/era/avalik-laadimine">Enefit Volt</a> · <a href="https://www.lidl.ee/c/e-mobiilsus/s10031726">Lidl</a> · <a href="https://www.weg.ee/elektriautode-laadimisvoimalused">W.EG</a> · <a href="https://taltech.atlassian.net/wiki/spaces/KI/pages/1209597993/Kuressaare+kolled%C5%BEi+parklas+In+the+parking+lot+of+Kuressaare+College">TalTech</a>.</p></footer>
+  <div class="summary"><div class="metric"><span>Järgmise 24 h madalaim</span><b id="min-price">–</b></div><div class="metric"><span>Järgmise 24 h kõrgeim</span><b id="max-price">–</b></div><div class="metric"><span>Andmeid värskendati</span><b id="updated-at">–</b></div></div>
+  <footer class="notes"><p><b>Arvestus.</b> Börsihinna väärtused sisaldavad 24% käibemaksu. Arvel toodud muud tasud on lisatud nende km-ta ühikuhindade alusel ning käibemaks arvutatud 24%.</p><p><b>Lepametsa tariifid.</b> Võrk 2 / 40 A: päevane edastamine 6,07 ja öine 3,51 s/kWh; taastuvenergia tasu 0,84; varustuskindluse tasu 0,758; elektriaktsiis 0,21; tasakaalustamisvõimsuse kulu 0,373 s/kWh (kõik enne KM-i). Päevatariif 07:00–22:00, öötariif 22:00–07:00.</p><p>Kuutasu 14,29 €/kuu on välja jäetud. Elektri müügi või tootmise tasaarveldust, kindlustust ega muid lisateenuseid ei arvestata. Börsihind pärineb Spotwatts API-st (ENTSO-E päev-ette oksjonihind); Lepametsa tasud lähtuvad 2026. aasta oktoobri arvest. Järgmiseks päevaks veel avaldamata veerandtundidel kuvatakse „hind avaldamata”.</p><p><b>Börsihinna allikas:</b> <a href="https://spotwatts.com/ee">Prices: Spotwatts</a>. Andmeid värskendatakse lehe avamisel ja seejärel kord tunnis.</p><p><b>Hinnad ja asukohad:</b> <a href="https://www.elektrum.ee/ee/elektrum-drive/laadimine/laadimisjaamade-kaart">Elektrum Drive</a> · <a href="https://www.alexela.ee/et/e-mobiilsus-avalik-laadimine">Alexela</a> · <a href="https://www.enefit.ee/et/era/avalik-laadimine">Enefit Volt</a> · <a href="https://www.lidl.ee/c/e-mobiilsus/s10031726">Lidl</a> · <a href="https://www.weg.ee/elektriautode-laadimisvoimalused">W.EG</a> · <a href="https://taltech.atlassian.net/wiki/spaces/KI/pages/1209597993/Kuressaare+kolled%C5%BEi+parklas+In+the+parking+lot+of+Kuressaare+College">TalTech</a>.</p></footer>
 </section>
 </main>
 <div id="tip" class="tooltip" role="status" aria-live="polite"></div>
 <script>
 (()=>{
-  const spot=[5.7,9.6,8.9,9.5,12.4,7.0,5.5,8.4,10.6,12.3,12.5,12.6,11.38,12.9,12.9,12.9,12.9,12.9,13.0,12.9,12.9,12.9,12.7,10.3];
-  const rangeData=[
-    {name:'Kodu · tänane graafik',min:12.56,max:23.23,kind:'home',label:'12,56–23,23'},
-    {name:'Alexela · avalikud jaamad',min:18,max:49,kind:'alexela',label:'18–49'},
-    {name:'Enefit Volt · kuni 100 kW, 10% soodustus',min:24.3,max:29.7,kind:'enefit',label:'24,3–29,7'},
-    {name:'Lidl · AC kuni 22 kW',min:30,max:30,kind:'lidl',label:'30'},
-    {name:'Lidl · DC',min:38,max:38,kind:'lidl',label:'38'},
-    {name:'W.EG · AC 22 kW',min:35,max:35,kind:'weg',label:'35'},
-    {name:'TalTech · piiratud ligipääs',min:18.81,max:18.81,kind:'weg',label:'18,81'}
-  ];
-  const ranges=document.getElementById('ranges');
-  rangeData.forEach(d=>{const row=document.createElement('div');row.className='range-row';row.innerHTML=`<b>${d.name}</b><div class="track"><i class="rangebar ${d.kind}" style="left:${d.min/55*100}%;width:${Math.max(.7,(d.max-d.min)/55*100)}%"></i></div><span class="rangelabel">${d.label} s/kWh</span>`;ranges.appendChild(row)});
-  const svg=document.getElementById('chart'),tip=document.getElementById('tip'),ns='http://www.w3.org/2000/svg';
-  const evSvg=document.getElementById('ev-chart'),evRows=document.getElementById('ev-rows');
-  const evS=(tag,attrs={})=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));evSvg.appendChild(e);return e};
-  const baseline=292,plotHeight=260,evMax=35,evLeft=45,slot=39,homeBase=(.84+.758+.21+.373)*1.24;
-  for(let v=0;v<=35;v+=5){const yy=baseline-v/evMax*plotHeight;evS('line',{x1:evLeft,y1:yy,x2:995,y2:yy,stroke:'#e4eaf0'});const lab=evS('text',{x:evLeft-8,y:yy+4,'text-anchor':'end','font-size':11,fill:'#657386'});lab.textContent=v;}
-  const unit=evS('text',{x:evLeft,y:16,'font-size':11,fill:'#657386'});unit.textContent='senti/kWh';
-  const fmt=n=>n.toLocaleString('et-EE',{minimumFractionDigits:2,maximumFractionDigits:2});
-  spot.forEach((price,h)=>{
-    const isDayNet=h>=7&&h<22,home=price+(isDayNet?6.07:3.51)*1.24+homeBase;
-    const ev=(h>=8&&h<21?29.7:24.3),delta=ev-home,homeCol=delta>=0?'#278356':'#c43d3d';
-    const x=evLeft+9+h*slot,barW=13,homeH=home/evMax*plotHeight,evH=ev/evMax*plotHeight;
-    const homeBar=evS('rect',{x,y:baseline-homeH,width:barW,height:homeH,rx:3,fill:homeCol,tabindex:0,role:'img','aria-label':`${String(h).padStart(2,'0')}:00. Kodus ${fmt(home)} senti kilovatt-tunni eest.`});
-    const evBar=evS('rect',{x:x+16,y:baseline-evH,width:barW,height:evH,rx:3,fill:'#3867e8',tabindex:0,role:'img','aria-label':`${String(h).padStart(2,'0')}:00. Enefit Volt soodushind ${fmt(ev)} senti kilovatt-tunni eest.`});
-    const tipText=`${String(h).padStart(2,'0')}:00–${String((h+1)%24).padStart(2,'0')}:00<br>Kodus: ${fmt(home)} s/kWh<br>Enefit Volt: ${fmt(ev)} s/kWh<br>Kodus ${delta>=0?'odavam':'kallim'}: ${fmt(Math.abs(delta))} s/kWh`;
-    [homeBar,evBar].forEach(el=>{const show=e=>{tip.innerHTML=tipText;tip.style.display='block';const r=el.getBoundingClientRect(),xx=e.clientX??r.left,yy=e.clientY??r.top;tip.style.left=Math.min(xx+12,window.innerWidth-285)+'px';tip.style.top=Math.max(8,yy-18)+'px'};el.addEventListener('pointerenter',show);el.addEventListener('pointermove',show);el.addEventListener('pointerleave',()=>tip.style.display='none');el.addEventListener('focus',show);el.addEventListener('blur',()=>tip.style.display='none')});
-    if(h%2===0){const t=evS('text',{x:x+13,y:baseline+20,'text-anchor':'middle','font-size':10,fill:'#657386'});t.textContent=String(h).padStart(2,'0')}
-    const tr=document.createElement('tr');tr.innerHTML=`<td>${String(h).padStart(2,'0')}:00–${String((h+1)%24).padStart(2,'0')}:00</td><td>${fmt(home)} s/kWh</td><td>${fmt(ev)} s/kWh</td><td class="${delta>=0?'positive':'negative'}">${delta>=0?'Kodus odavam':'Kodus kallim'} ${fmt(Math.abs(delta))}</td>`;evRows.appendChild(tr);
-  });
-  const left=54,top=22,bottom=324,height=285,width=866,max=26,bw=23,gap=11;
-  const fees={renewable:.84,security:.758,excise:.21,balance:.373};
-  const money=n=>n.toLocaleString('et-EE',{minimumFractionDigits:2,maximumFractionDigits:2});
-  const S=(name,attrs={},parent=svg)=>{const e=document.createElementNS(ns,name);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));parent.appendChild(e);return e};
-  for(let v=0;v<=25;v+=5){const y=bottom-v/max*height;S('line',{x1:left,y1:y,x2:930,y2:y,stroke:'#e4eaf0','stroke-width':1});const t=S('text',{x:left-10,y:y+4,'text-anchor':'end','font-size':12,fill:'#657386'});t.textContent=v;}
-  const yLabel=S('text',{x:left,y:13,'font-size':12,fill:'#657386'});yLabel.textContent='senti/kWh';
-  spot.forEach((price,h)=>{
-    const isDay=h>=7&&h<22,grid=(isDay?6.07:3.51)*1.24,renew=fees.renewable*1.24,security=fees.security*1.24,excise=fees.excise*1.24,balance=fees.balance*1.24;
-    const pieces=[{value:price,color:'#3867e8',label:'Börsihind (KM-ga)'},{value:grid,color:'#91a8e8',label:`Võrgutasu (${isDay?'päev':'öö'}, KM-ga)`},{value:renew+security+excise,color:'#f3b94f',label:'Taastuvenergia + varustuskindlus + aktsiis (KM-ga)'},{value:balance,color:'#ee8961',label:'Tasakaalustamisvõimsus (KM-ga)'}];
-    const total=pieces.reduce((a,p)=>a+p.value,0),x=left+12+h*(bw+gap);let cursor=bottom;
-    pieces.forEach((piece,j)=>{const bh=piece.value/max*height;cursor-=bh;const rect=S('rect',{x,y:cursor,width:bw,height:bh,rx:j===pieces.length-1?4:1,fill:piece.color,class:'bar',tabindex:0,role:'img','aria-label':`${String(h).padStart(2,'0')}:00: ${piece.label} ${money(piece.value)} senti/kWh`});
-      const show=ev=>{tip.innerHTML=`<b>${String(h).padStart(2,'0')}:00–${String((h+1)%24).padStart(2,'0')}:00</b><br>${pieces.map(p=>`${p.label}: ${money(p.value)}`).join('<br>')}<br><b>Kokku: ${money(total)} s/kWh</b>`;tip.style.display='block';move(ev)};
-      const move=ev=>{const px=ev.clientX??(rect.getBoundingClientRect().left+20),py=ev.clientY??rect.getBoundingClientRect().top;tip.style.left=Math.min(px+14,window.innerWidth-280)+'px';tip.style.top=Math.max(8,py-22)+'px'};
-      rect.addEventListener('pointerenter',show);rect.addEventListener('pointermove',move);rect.addEventListener('pointerleave',()=>tip.style.display='none');rect.addEventListener('focus',show);rect.addEventListener('blur',()=>tip.style.display='none');rect.addEventListener('keydown',ev=>{if(ev.key==='Escape')tip.style.display='none'});
+  const root=document,zone='Europe/Tallinn',slotMs=15*60*1000,fees={networkDay:6.07,networkNight:3.51,renewable:.84,security:.758,excise:.21,balance:.373};
+  const api='https://spotwatts.com/api/v1/ee/';
+  const svg=root.getElementById('chart'),evSvg=root.getElementById('ev-chart'),tip=root.getElementById('tip');
+  const money=n=>Number(n).toLocaleString('et-EE',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const localDate=t=>{const p=new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(t));return `${p.find(x=>x.type==='year').value}-${p.find(x=>x.type==='month').value}-${p.find(x=>x.type==='day').value}`};
+  const fmtTime=(t,opts={})=>new Intl.DateTimeFormat('et-EE',{timeZone:zone,hour:'2-digit',minute:'2-digit',...opts}).format(new Date(t));
+  const formatDateTime=t=>new Intl.DateTimeFormat('et-EE',{timeZone:zone,day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(t));
+  const feesFor=t=>{const h=Number(new Intl.DateTimeFormat('en-GB',{timeZone:zone,hour:'2-digit',hourCycle:'h23'}).format(new Date(t)));return h>=7&&h<22?fees.networkDay:fees.networkNight};
+  const evFor=t=>{const h=Number(new Intl.DateTimeFormat('en-GB',{timeZone:zone,hour:'2-digit',hourCycle:'h23'}).format(new Date(t)));return h>=8&&h<21?29.7:24.3};
+  const localStamp=()=>new Intl.DateTimeFormat('et-EE',{timeZone:zone,dateStyle:'short',timeStyle:'short'}).format(new Date());
+  const apiCache=new Map();
+  async function dayData(date){if(apiCache.has(date))return apiCache.get(date);const res=await fetch(`${api}${date}.json`,{cache:'no-store'});if(res.status===404)return null;if(!res.ok)throw new Error(`Hinnaliides vastas veaga ${res.status}`);const data=await res.json();apiCache.set(date,data);return data}
+  function makeSvg(tag,attrs,parent){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));parent.appendChild(e);return e}
+  function clear(el){while(el.firstChild)el.removeChild(el.firstChild)}
+  function showTip(target,html,ev){tip.innerHTML=html;tip.style.display='block';const r=target.getBoundingClientRect(),x=ev?.clientX??r.left,y=ev?.clientY??r.top;tip.style.left=Math.max(8,Math.min(x+12,innerWidth-290))+'px';tip.style.top=Math.max(8,y-20)+'px'}
+  function calculations(price,t){const network=feesFor(t)*1.24;const taxes=(fees.renewable+fees.security+fees.excise)*1.24;const balance=fees.balance*1.24;return {spot:price,network,taxes,balance,total:price+network+taxes+balance,ev:evFor(t)}}
+  function renderMain(points,windowStart){
+    clear(svg);const left=54,right=948,top=22,bottom=324,plotH=285,span=right-left,step=span/96,bw=Math.max(2,step*.64);const known=points.map(p=>p.calc.total).filter(Number.isFinite);const max=Math.max(10,Math.ceil(Math.max(...known,35)/5)*5),min=Math.min(0,Math.floor(Math.min(...known,0)/5)*5),range=max-min||1;
+    for(let v=min;v<=max;v+=5){const y=bottom-(v-min)/range*plotH;makeSvg('line',{x1:left,y1:y,x2:right,y2:y,stroke:'#e4eaf0'},svg);const lab=makeSvg('text',{x:left-8,y:y+4,'text-anchor':'end','font-size':11,fill:'#657386'},svg);lab.textContent=v}
+    const unit=makeSvg('text',{x:left,y:13,'font-size':11,fill:'#657386'},svg);unit.textContent='senti/kWh';
+    points.forEach((p,i)=>{const x=left+i*step+(step-bw)/2;if(p.price==null){makeSvg('line',{x1:x,y1:bottom-4,x2:x+bw,y2:bottom-4,stroke:'#b7c1cd','stroke-dasharray':'2 2'},svg);return}
+      const c=p.calc,segments=[{v:c.spot,color:'#3867e8',name:'Börsihind koos KM-ga'},{v:c.network,color:'#91a8e8',name:`Võrgutasu (${feesFor(p.t)>=6?'päev':'öö'}) koos KM-ga`},{v:c.taxes,color:'#f3b94f',name:'Taastuvenergia, varustuskindlus ja aktsiis koos KM-ga'},{v:c.balance,color:'#ee8961',name:'Tasakaalustamisvõimsus koos KM-ga'}];let cursor=bottom-(0-min)/range*plotH;
+      segments.forEach((seg,j)=>{const h=Math.abs(seg.v)/range*plotH;let y;if(j===0&&seg.v<0){y=cursor;cursor+=h}else{cursor-=h;y=cursor}const r=makeSvg('rect',{x,y,width:bw,height:h,rx:j===segments.length-1?2:0,fill:seg.color,class:'bar',tabindex:0,role:'img','aria-label':`${fmtTime(p.t)}: ${seg.name} ${money(seg.v)} senti kilovatt-tunni eest.`},svg);const detail=`<b>${formatDateTime(p.t)}</b><br>Börs: ${money(c.spot)} s/kWh<br>Võrk: ${money(c.network)} s/kWh<br>Taastuvenergia, varustuskindlus ja aktsiis: ${money(c.taxes)} s/kWh<br>Tasakaalustamine: ${money(c.balance)} s/kWh<br><b>Kokku kodus: ${money(c.total)} s/kWh</b>`;r.addEventListener('pointerenter',e=>showTip(r,detail,e));r.addEventListener('pointermove',e=>showTip(r,detail,e));r.addEventListener('pointerleave',()=>tip.style.display='none');r.addEventListener('focus',e=>showTip(r,detail,e));r.addEventListener('blur',()=>tip.style.display='none')});
+      if(i%4===0){const tick=makeSvg('text',{x:x+bw/2,y:bottom+19,'text-anchor':'middle','font-size':10,fill:'#657386'},svg);tick.textContent=fmtTime(p.t)}
     });
-    const tick=S('text',{x:x+bw/2,y:bottom+22,'text-anchor':'middle','font-size':11,fill:'#657386'});if(h%2===0)tick.textContent=String(h).padStart(2,'0');
-  });
-  const xlab=S('text',{x:930,y:bottom+22,'text-anchor':'end','font-size':11,fill:'#657386'});xlab.textContent='kell';
+    const end=makeSvg('text',{x:right,y:bottom+34,'text-anchor':'end','font-size':10,fill:'#657386'},svg);end.textContent=formatDateTime(windowStart+24*60*60*1000);
+  }
+  function renderCompare(points){
+    clear(evSvg);const left=45,right=992,bottom=292,plotH=260,step=(right-left)/96,bw=Math.max(2,step*.34);const values=points.flatMap(p=>p.price==null?[]:[p.calc.total,p.calc.ev]);const max=Math.max(35,Math.ceil(Math.max(...values,35)/5)*5);
+    for(let v=0;v<=max;v+=5){const y=bottom-v/max*plotH;makeSvg('line',{x1:left,y1:y,x2:right,y2:y,stroke:'#e4eaf0'},evSvg);const lab=makeSvg('text',{x:left-7,y:y+4,'text-anchor':'end','font-size':10,fill:'#657386'},evSvg);lab.textContent=v}
+    const unit=makeSvg('text',{x:left,y:14,'font-size':10,fill:'#657386'},evSvg);unit.textContent='senti/kWh';
+    points.forEach((p,i)=>{const x=left+i*step+(step-2*bw-2)/2;if(p.price==null)return;const c=p.calc,delta=c.ev-c.total,homeY=bottom-c.total/max*plotH,evY=bottom-c.ev/max*plotH;const home=makeSvg('rect',{x,y:homeY,width:bw,height:bottom-homeY,rx:2,fill:delta>=0?'#278356':'#c43d3d',tabindex:0,role:'img','aria-label':`${formatDateTime(p.t)}: kodus ${money(c.total)} s/kWh, Enefit ${money(c.ev)} s/kWh. Kodus ${delta>=0?'odavam':'kallim'} ${money(Math.abs(delta))} s/kWh.`},evSvg);const en=makeSvg('rect',{x:x+bw+2,y:evY,width:bw,height:bottom-evY,rx:2,fill:'#3867e8',tabindex:0,role:'img','aria-label':`${formatDateTime(p.t)}: Enefit Volt soodushind ${money(c.ev)} s/kWh.`},evSvg);const detail=`<b>${formatDateTime(p.t)}</b><br>Kodus: ${money(c.total)} s/kWh<br>Enefit Volt: ${money(c.ev)} s/kWh<br><b>Kodus ${delta>=0?'odavam':'kallim'} ${money(Math.abs(delta))} s/kWh</b>`;[home,en].forEach(b=>{b.addEventListener('pointerenter',e=>showTip(b,detail,e));b.addEventListener('pointermove',e=>showTip(b,detail,e));b.addEventListener('pointerleave',()=>tip.style.display='none');b.addEventListener('focus',e=>showTip(b,detail,e));b.addEventListener('blur',()=>tip.style.display='none')});if(i%4===0){const tick=makeSvg('text',{x:x+bw,y:bottom+18,'text-anchor':'middle','font-size':9,fill:'#657386'},evSvg);tick.textContent=fmtTime(p.t)}})
+  }
+  function renderTable(points){const body=document.getElementById('ev-rows');body.replaceChildren();for(const p of points){const tr=document.createElement('tr');if(p.price==null){tr.innerHTML=`<td>${formatDateTime(p.t)}</td><td>hind avaldamata</td><td>–</td><td>–</td>`}else{const d=p.calc.ev-p.calc.total;tr.innerHTML=`<td>${formatDateTime(p.t)}</td><td>${money(p.calc.total)} s/kWh</td><td>${money(p.calc.ev)} s/kWh</td><td class="${d>=0?'positive':'negative'}">Kodus ${d>=0?'odavam':'kallim'} ${money(Math.abs(d))} s/kWh</td>`}body.appendChild(tr)}}
+  async function refresh(){const status=root.getElementById('refresh-status');status.textContent='Värskendan hindu…';try{const now=Date.now(),start=Math.floor(now/slotMs)*slotMs,end=start+24*60*60*1000,dates=[...new Set([localDate(start),localDate(end-1)])];const loaded=await Promise.all(dates.map(dayData)),byStart=new Map();loaded.filter(Boolean).forEach(d=>(d.intervals||[]).forEach(q=>byStart.set(new Date(q.start).getTime(),q.price_vat*100)));const points=[];for(let t=start;t<end;t+=slotMs){const price=byStart.has(t)?byStart.get(t):null;points.push({t,price,calc:price==null?null:calculations(price,t)})}
+      const available=points.filter(p=>p.calc);renderMain(points,start);renderCompare(points);renderTable(points);const current=points[0],windowEl=root.getElementById('current-window'),homeNow=root.getElementById('home-now'),evNow=root.getElementById('en-now'),diffNow=root.getElementById('difference-now');windowEl.textContent=`${formatDateTime(current.t)}–${fmtTime(current.t+slotMs)}`;if(current.calc){homeNow.textContent=`${money(current.calc.total)} s/kWh`;evNow.textContent=`${money(current.calc.ev)} s/kWh`;const delta=current.calc.ev-current.calc.total;diffNow.textContent=`Kodus ${delta>=0?'odavam':'kallim'} ${money(Math.abs(delta))} s/kWh`;diffNow.className=delta>=0?'positive':'negative'}else{homeNow.textContent='hind avaldamata';evNow.textContent=`${money(evFor(current.t))} s/kWh`;diffNow.textContent='Börsihind pole veel avaldatud'}
+      if(available.length){const lows=available.map(p=>p.calc.total);root.getElementById('min-price').textContent=`${money(Math.min(...lows))} s/kWh`;root.getElementById('max-price').textContent=`${money(Math.max(...lows))} s/kWh`;const times=available.map(p=>p.calc.total);const rd=document.getElementById('ranges');const range=rd.querySelector('.range-row');if(range){const min=Math.min(...times),max=Math.max(...times);range.innerHTML=`<b>Kodu · järgmised 24 h</b><div class="track"><i class="rangebar home" style="left:${Math.min(100,min/55*100)}%;width:${Math.max(.7,Math.min(100,(max-min)/55*100))}%"></i></div><span class="rangelabel">${money(min)}–${money(max)}</span>`}}
+      root.getElementById('updated-at').textContent=localStamp();let missing=points.filter(p=>p.price==null).length;status.textContent=`Uuendatud ${localStamp()} · näidatakse ${available.length} / 96 veerandtundi${missing?` · ${missing} tulevase perioodi börsihind pole veel avaldatud`:''}.`;
+    }catch(e){status.textContent=`Hindu ei õnnestunud uuendada: ${e.message}. Proovi leht uuesti avada.`}}
+  refresh();setInterval(refresh,60*60*1000);
 })();
 </script>
 </body>
